@@ -32,7 +32,26 @@ plt.show()
 ### visualization code (prettyPicture) to show you the decision boundary
 
 
+#########################################################
+### your code goes here ###
+from sklearn import ensemble
+from sklearn.metrics import confusion_matrix
+from sklearn.ensemble import AdaBoostClassifier
+clf = AdaBoostClassifier()
 
+from sklearn.metrics import accuracy_score
+y_pred = clf.fit(features_train, labels_train).predict(features_test)
+
+
+
+print len(features_train[0])
+
+cm = confusion_matrix(labels_test, y_pred)
+
+
+#print cm
+
+print accuracy_score(labels_test, y_pred)
 
 
 
