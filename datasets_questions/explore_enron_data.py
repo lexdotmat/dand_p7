@@ -48,4 +48,5 @@ print (df['salary'] != 'NaN').sum()
 print (df['email_address'] != 'NaN').sum()
 print (df['total_payments'] == 'NaN').sum()
 print (df['total_payments'] == 'NaN').sum()/(df['total_payments'].count())
+print (df['poi'] == True) .sum()
 print df[(df['poi'] == True) & (df['total_payments'] == 'NaN')]
