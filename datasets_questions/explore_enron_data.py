@@ -29,6 +29,7 @@ for i in enron_data.keys():
         POI_count +=1
 
 print POI_count
+
 print enron_data[ 'PRENTICE JAMES']
 
 print enron_data['COLWELL WESLEY']['from_this_person_to_poi']
