@@ -1,6 +1,16 @@
 #!/usr/bin/python
 
 from nltk.stem.snowball import SnowballStemmer
+
+stemmer = SnowballStemmer ("english")
+
+
+def stemming (text):
+    empty_text = [ ]
+    words = text.split ( )
+    for word in words:
+        empty_text.append (stemmer.stem (word))
+    return ' '.join (empty_text)
 import string
 
 def parseOutText(f):
@@ -20,6 +30,7 @@ def parseOutText(f):
     f.seek(0)  ### go back to beginning of file (annoying)
     all_text = f.read()
 
+
     ### split off metadata
     content = all_text.split("X-FileName:")
     words = ""
@@ -28,14 +39,13 @@ def parseOutText(f):
         text_string = content[1].translate(string.maketrans("", ""), string.punctuation)
 
         ### project part 2: comment out the line below
-        words = text_string
+        #words = text_string
 
         ### split the text string into individual words, stem each word,
         ### and append the stemmed word to words (make sure there's a single
         ### space between each stemmed word)
-        
 
-
+        words = stemming(text_string)
 
 
     return words

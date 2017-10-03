@@ -28,26 +28,38 @@ for i in enron_data.keys():
     if enron_data[i]["poi"] == 1:
         POI_count +=1
 
-print POI_count
+#print POI_count
 
-print enron_data[ 'PRENTICE JAMES']
+#print enron_data[ 'PRENTICE JAMES']
 
-print enron_data['COLWELL WESLEY']['from_this_person_to_poi']
-print enron_data['SKILLING JEFFREY K'][ 'exercised_stock_options']
-print enron_data[ 'LAY KENNETH L'][ 'total_payments']
-print enron_data['SKILLING JEFFREY K'][ 'total_payments']
-print enron_data[ 'FASTOW ANDREW S'][ 'total_payments']
+#print enron_data['COLWELL WESLEY']['from_this_person_to_poi']
+#print enron_data['SKILLING JEFFREY K'][ 'exercised_stock_options']
+#print enron_data[ 'LAY KENNETH L'][ 'total_payments']
+#print enron_data['SKILLING JEFFREY K'][ 'total_payments']
+#print enron_data[ 'FASTOW ANDREW S'][ 'total_payments']
 
 #data[person_name]["poi"]==1
-
+enron_data.pop('TOTAL', 0 )
 # check NaNs
 import pandas as pd
 import numpy as np
 df = pd.DataFrame(enron_data)
 df = df.T
-print (df['salary'] != 'NaN').sum()
-print (df['email_address'] != 'NaN').sum()
-print (df['total_payments'] == 'NaN').sum()
-print (df['total_payments'] == 'NaN').sum()/(df['total_payments'].count())
-print (df['poi'] == True) .sum()
-print df[(df['poi'] == True) & (df['total_payments'] == 'NaN')]
+# print (df['salary'] != 'NaN').sum()
+# print (df['email_address'] != 'NaN').sum()
+# print (df['total_payments'] == 'NaN').sum()
+# print (df['total_payments'] == 'NaN').sum()/(df['total_payments'].count())
+# print (df['poi'] == True) .sum()
+# print df[(df['poi'] == True) & (df['total_payments'] == 'NaN')]
+print "Max Values"
+print df.loc[df['salary'].idxmax()]
+print "Min Values"
+print df.loc[df['salary'].idxmin()]
+
+print "Max Values"
+print df.loc[df['exercised_stock_options'].idxmax()]
+print "Min Values"
+print df.loc[df['exercised_stock_options'].idxmin()]
+# print df['salary'].min(skipna = True)
+# print df['salary'].max(skipna = True)
+int()

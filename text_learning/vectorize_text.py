@@ -36,29 +36,45 @@ word_data = []
 ### can iterate your modifications quicker
 temp_counter = 0
 
+def stemming (text):
+    empty_text = [ ]
+    words = text.split ( )
+    for word in words:
+        empty_text.append (stemmer.stem (word))
+    return ' '.join (empty_text)
 
 for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
+    print name
+    #print from_person
     for path in from_person:
         ### only look at first 200 emails when developing
         ### once everything is working, remove this line to run over full dataset
         temp_counter += 1
         if temp_counter < 200:
             path = os.path.join('..', path[:-1])
-            print path
+            #print path
+
             email = open(path, "r")
 
             ### use parseOutText to extract the text from the opened email
-
+            word_data.append(parseOutText(email))
             ### use str.replace() to remove any instances of the words
             ### ["sara", "shackleton", "chris", "germani"]
-
+            #word_data.replace ("sara", "")
+            #word_data.replace ("shackleton", "")
+            #word_data.replace ("chris", "")
+            #word_data.replace ("germani", "")
             ### append the text to word_data
 
             ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
+            if str(name) == "sara":
+                from_data.append(0)
+            else:
+                from_data.append(1)
 
 
             email.close()
-
+print from_data
 print "emails processed"
 from_sara.close()
 from_chris.close()
