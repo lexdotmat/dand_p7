@@ -30,7 +30,7 @@ from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 from sklearn.decomposition import RandomizedPCA
 from sklearn.svm import SVC
-
+from numpy import var
 # Display progress logs on stdout
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s')
 
@@ -80,7 +80,7 @@ t0 = time()
 X_train_pca = pca.transform(X_train)
 X_test_pca = pca.transform(X_test)
 print "done in %0.3fs" % (time() - t0)
-
+print pca.explained_variance_
 
 ###############################################################################
 # Train a SVM classification model
@@ -144,3 +144,4 @@ eigenface_titles = ["eigenface %d" % i for i in range(eigenfaces.shape[0])]
 plot_gallery(eigenfaces, eigenface_titles, h, w)
 
 pl.show()
+summary(pca)
