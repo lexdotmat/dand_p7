@@ -33,6 +33,7 @@ What algorithm did you end up using? What other one(s) did you try? How did mode
 What does it mean to tune the parameters of an algorithm, and what can happen if you don’t do this well?  How did you tune the parameters of your particular algorithm? What parameters did you tune? (Some algorithms do not have parameters that you need to tune -- if this is the case for the one you picked, identify and briefly explain how you would have done it for the model that was not your final choice or a different model that does utilize parameter tuning, e.g. a decision tree classifier).  [relevant rubric items: “discuss parameter tuning”, “tune the algorithm”]
 
 Interesting algorithms : 
+Naive Bayes  http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB
 SVM - http://scikit-learn.org/stable/modules/svm.html 
 Decision Tree :  http://scikit-learn.org/stable/modules/tree.html#classification 
 Stochastic Gradient Descent  - http://scikit-learn.org/stable/modules/sgd.html#classification
@@ -49,3 +50,7 @@ Give at least 2 evaluation metrics and your average performance for each of them
 
 Scikit Learn Supervised learning 
 http://scikit-learn.org/stable/supervised_learning.html 
+Gaussian NB
+http://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html#sklearn.naive_bayes.GaussianNB
+NB Fitting answer on SO
+https://stackoverflow.com/questions/26569478/performing-grid-search-on-sklearn-naive-bayes-multinomialnb-on-multi-core-machin

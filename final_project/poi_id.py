@@ -15,6 +15,7 @@ from sklearn.metrics import recall_score
 from sklearn import svm
 
 
+
 ### features_list is a list of strings, each of which is a feature name.
 ### The first feature must be "poi".
 features_list = ['poi','salary',  'exercised_stock_options', 'bonus', 'total_payments','total_stock_value','long_term_incentive','shared_receipt_with_poi'] # You will need to use more features
@@ -56,7 +57,7 @@ param_grid = [
   {'C': [1, 10, 100, 1000], 'gamma': [0.001, 0.0001], 'kernel': ['rbf']},
  ]
 treeclf = tree.DecisionTreeClassifier()
-SVMclf = svm.SVC()
+SVMclf = svm.SVC( C = 0.1, gamma = 1000)
 NBclf = GaussianNB()
 
 treeclf.fit(features_train, labels_train)
@@ -64,29 +65,28 @@ SVMclf.fit(features_train, labels_train)
 NBclf.fit(features_train, labels_train)
 
 y_pred_tree = treeclf.predict(features_test)
-y_pred_SVM = SVMclf.predict(features_test)
-y_pred_NB = NBclf.predict(features_test)
+y_pred_SVM  = SVMclf.predict(features_test)
+y_pred_NB   = NBclf.predict(features_test)
 
 print "Number of training points", len(labels_train)
 print "Number of test points", len(labels_test)
-
 
 print "Confusion Matrix Prediction"
 # print confusion_matrix(labels_test, y_pred)
 print "Classification Tree Scores"
 print "Accuracy Tree: ", accuracy_score(labels_test, y_pred_tree)
-print "precision Score: ", precision_score(labels_test,y_pred_tree)
-print "Recall Score: ", recall_score(labels_test,y_pred_tree)
+print "precision Score: ", precision_score(labels_test, y_pred_tree)
+print "Recall Score: ", recall_score(labels_test, y_pred_tree)
 
-print "SVM Scores"
-print "Accuracy SVM: ", accuracy_score(labels_test, y_pred_SVM)
-print "precision Score: ", precision_score(labels_test,y_pred_SVM)
-print "Recall Score: ", recall_score(labels_test,y_pred_SVM)
-
-print "NB Scores"
-print "Accuracy NB: ", accuracy_score(labels_test, y_pred_NB)
-print "precision Score: ", precision_score(labels_test,y_pred_NB)
-print "Recall Score: ", recall_score(labels_test,y_pred_NB)
+parameters = {'min_samples_split': [2, 4, 10, 100, 1000], 'min_samples_leaf': [1000,100,10,2,1, 0.01, 0.001, 0.0001],}
+svr = tree.DecisionTreeClassifier()
+clf = GridSearchCV(svr, parameters)
+clf.fit(features_train, labels_train)
+y_pred = clf.predict(features_test)
+print "Best", clf.best_params_
+print "Accuracy SVM clf: ", accuracy_score(labels_test, y_pred)
+print "precision Score SVM clf: ", precision_score(labels_test, y_pred)
+print "Recall Score SVM clf: ", recall_score(labels_test, y_pred)
 
 ### Task 5: Tune your classifier to achieve better than .3 precision and recall
 ### using our testing script. Check the tester.py script in the final project
@@ -94,39 +94,11 @@ print "Recall Score: ", recall_score(labels_test,y_pred_NB)
 ### function. Because of the small size of the dataset, the script uses
 ### stratified shuffle split cross validation. For more info:
 ### http://scikit-learn.org/stable/modules/generated/sklearn.cross_validation.StratifiedShuffleSplit.html
-tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-3, 1e-4],
-                     'C': [1, 10, 100, 1000]},
-                    {'kernel': ['linear'], 'C': [1, 10, 100, 1000]}]
 
-scores = ['precision', 'recall']
-# http://scikit-learn.org/stable/auto_examples/model_selection/plot_grid_search_digits.html#sphx-glr-auto-examples-model-selection-plot-grid-search-digits-py
-for score in scores:
-    print "# Tuning hyper-parameters for %s" % score
-    print
-
-    clf = GridSearchCV(SVC(), tuned_parameters, cv=5, scoring='%s_macro' % score)
-    clf.fit(features_train, labels_train)
-
-    print "Best parameters set found on development set:"
-
-    print clf.best_params_
-
-    print "Grid scores on development set:"
-
-    means = clf.cv_results_['mean_test_score']
-    stds = clf.cv_results_['std_test_score']
-
-    for mean, std, params in zip(means, stds, clf.cv_results_['params']):
-        print "%0.3f (+/-%0.03f) for %r" % (mean, std * 2, params)
-
-    print "Detailed classification report:"
-    print "The model is trained on the full development set."
-    print "The scores are computed on the full evaluation set."
-
-    y_true, y_pred = labels_test, clf.predict(features_test)
-
-    print classification_report(y_true, y_pred)
-
+print "NB Scores"
+print "Accuracy NB: ", accuracy_score(labels_test, y_pred_NB)
+print "precision Score: ", precision_score(labels_test, y_pred_NB)
+print "Recall Score: ", recall_score(labels_test, y_pred_NB)
 
 # Example starting point. Try investigating other evaluation techniques!
 from sklearn.cross_validation import train_test_split
