@@ -45,7 +45,9 @@ clf = tree.DecisionTreeClassifier()
 
 clf.fit(features_train, labels_train)
 
+
 y_pred = clf.predict(features_test)
 print "number of training points ", len(labels_train)
 print "Accuracy: ", accuracy_score(labels_test, y_pred)
 
+print clf.feature_importances_
