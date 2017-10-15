@@ -160,7 +160,6 @@ y_pred_GB   = Gbclf.predict(features_test)
 # result : {'n_estimators': 50, 'learning_rate': 0.05, 'criterion': 'mae', 'max_depth': 1}
 # https://stackoverflow.com/questions/45151043/extract-best-pipeline-from-gridsearchcv-for-cross-val-predict
 
-# clf = tree.DecisionTreeClassifier()
 clf = GradientBoostingClassifier(random_state=0, learning_rate= 0.05, max_depth=1)
 clf.fit(features_train, labels_train)
 
